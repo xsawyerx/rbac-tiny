@@ -1,5 +1,5 @@
 package RBAC::Tiny;
-# ABSTRACT: Tiny Role Based Access Control (RBAC) implementation
+# ABSTRACT: Tiny Role-Based Access Control (RBAC) implementation
 
 use strict;
 use warnings;
@@ -30,20 +30,20 @@ sub _build_role {
 
     my @cans;
     # add all cans from parents, recursively
-    foreach my $from ( @{ $raw->{'all_from'} } ) {
+    foreach my $from ( @{ $raw->{'all_from'} || [] } ) {
         $self->{'raw_roles'}{$from}
             or croak("Role '$from' does not exist but used by '$role'");
 
         $cache->{$role} = $from;
         my $role = $self->role($from, $cache);
-        push @cans, @{ $role->{'can'} };
+        push @cans, @{ $role->{'can'} || [] };
     }
 
     # add our own cans
-    push @cans, @{ $raw->{'can'} };
+    push @cans, @{ $raw->{'can'} || [] };
 
     my %can_cache;
-    my %except = map +( $_ => 1 ), @{ $raw->{'except'} };
+    my %except = map +( $_ => 1 ), @{ $raw->{'except'} || [] };
     return {
         can => [
             grep +(
