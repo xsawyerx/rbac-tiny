@@ -1,5 +1,7 @@
-# ABSTRACT: Tiny Role-Based Access Control (RBAC) implementation
+## no critic
 package RBAC::Tiny;
+## use critic
+# ABSTRACT: Tiny Role-Based Access Control (RBAC) implementation
 use strict;
 use warnings;
 use Carp;
@@ -54,7 +56,9 @@ sub _build_role {
 
 sub can_role {
     my ( $self, $role, $permission ) = @_;
-    List::Util::first { $_ eq $permission } @{ $self->role($role)->{'can'} };
+    return List::Util::first {
+        $_ eq $permission
+    } @{ $self->role($role)->{'can'} };
 }
 
 sub roles {

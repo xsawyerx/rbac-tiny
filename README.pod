@@ -63,6 +63,10 @@ Retrieves all the role definitions.
 
 =head1 METHODS
 
+=head2 new
+
+Create a new object. See synopsis.
+
 =head2 role
 
     my $role = $rbac->role('author');
