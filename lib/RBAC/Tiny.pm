@@ -1,6 +1,5 @@
-package RBAC::Tiny;
 # ABSTRACT: Tiny Role-Based Access Control (RBAC) implementation
-
+package RBAC::Tiny;
 use strict;
 use warnings;
 use Carp;
@@ -133,6 +132,10 @@ by either C<all_from> or C<except>.
 Retrieves all the role definitions.
 
 =head1 METHODS
+
+=head2 new
+
+Create a new object. See synopsis.
 
 =head2 role
 
