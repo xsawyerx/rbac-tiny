@@ -1,0 +1,80 @@
+=pod
+
+=head1 SYNOPSIS
+
+    my $rbac = RBAC::Tiny->new(
+        roles => {
+            author => {
+                can => [ qw<read write publish> ],
+            },
+
+            limited_author => {
+                all_from => ['author'],
+                except   => ['publish'],
+            },
+
+            admin => {
+                all_from => ['author'],
+                can      => ['create_users'],
+            },
+        },
+    );
+
+    $rbac->can_role( author         => 'publish' );      # true
+    $rbac->can_role( author         => 'create_users' ); # false
+    $rbac->can_role( admin          => 'write' );        # true
+    $rbac->can_role( limited_author => 'publish' );      # false
+    $rbac->can_role( limited_author => 'create_users' ); # false
+    $rbac->can_role( author         => 'create_users' ); # false
+
+=head1 DESCRIPTION
+
+This module implements a tiny simple implementation of Role-Based
+Access Control, allowing you to specify roles and what each can
+do.
+
+Each role has three optional parameters:
+
+=over 4
+
+=item * all_from
+
+Will gather all the permissions from a list of roles.
+
+=item * can
+
+Add permissions for a role. Will add to permissions provided by
+C<all_from>.
+
+=item * except
+
+Remove permissions from a role. Will remove permissions provided
+by either C<all_from> or C<except>.
+
+=back
+
+=head1 ATTRIBUTES
+
+=head2 roles
+
+    my $roles = $rbac->roles;
+
+Retrieves all the role definitions.
+
+=head1 METHODS
+
+=head2 role
+
+    my $role = $rbac->role('author');
+
+Retrieves the role definition.
+
+=head2 can_role
+
+    if ( $rbac->can_role( author => 'write' ) ) {
+        ...
+    }
+
+Checks whether a role has a certain permission.
+
+=cut
