@@ -1,8 +1,8 @@
+use strict;
+use warnings;
 # ABSTRACT: Tiny Role-Based Access Control (RBAC) implementation
 package RBAC::Tiny;
 
-use strict;
-use warnings;
 use Carp;
 use List::Util;
 
