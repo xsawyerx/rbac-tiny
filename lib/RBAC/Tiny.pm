@@ -1,7 +1,6 @@
-## no critic
-package RBAC::Tiny;
-## use critic
 # ABSTRACT: Tiny Role-Based Access Control (RBAC) implementation
+package RBAC::Tiny;
+
 use strict;
 use warnings;
 use Carp;
